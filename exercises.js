@@ -38,7 +38,17 @@ console.log(books)
  "My dog `name` is `age` year old and likes to `speak` at strangers."
 */ 
 
+var dog = {
+    name: 'Pocco',
+    age: 10,
+    vegeterian: false,
+    color: ['black', 'white'],
+    speak: function(){
+        return 'bark!';
+    }
+};
 
+console.log('My dog ' + dog.name + ' is ' + dog.age + ' year old and likes to ' + dog.speak() + 'at strangers.')
 
 //An empty object
 
@@ -55,6 +65,16 @@ console.log(books)
   Console.log the object.
 */
 
+var kicks = {};
+kicks.brand = 'Ecco';
+kicks.color = 'cornflower blue';
+kicks.size = 6;
+kicks.price = 75;
+kicks.buy = function(){
+    return 'Now I is a cool kid!';
+}
+
+console.log(kicks)
 
 /* 
 
@@ -67,6 +87,12 @@ console.log(books)
   console.log the object
 */
 
+var plainBox = {};
+plainBox.color = 'red';
+plainBox.size = 5;
+plainBox.contents = [];
+
+console.log(plainBox)
 
 /*
 5. Declare a variable named `stockCar` and create the following properties (key-value pairs) to the object:
