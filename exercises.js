@@ -48,7 +48,8 @@ var dog = {
     }
 };
 
-console.log('My dog ' + dog.name + ' is ' + dog.age + ' year old and likes to ' + dog.speak() + 'at strangers.')
+// console.log(dog)
+console.log('My dog ' + dog.name + ' is ' + dog.age + ' year old and likes to ' + dog.speak() + ' at strangers.')
 
 //An empty object
 
@@ -133,6 +134,7 @@ console.log(stockCar)
  */
 
 var plainPerson = {};
+/*Q: What is the purpose of declaring a variable with the value of an empty object with no properties? Without {}, would the function not be able to create an object?*/
  function buildPerson(person, nameString, age){
    person.name = nameString;
    person.age = age;
@@ -225,12 +227,12 @@ var arrayOfObjects = [
 
 function printOrders(orders){
     for (var i = 0; i<orders.length; i++){
-        console.log('===== ')
-        console.log('id: ' + orders[i].id) /* NOTE: you would need to concatenate a string because everything before the colon is treated like a variable instead of data */
-        console.log('date: ' + orders[i].date)
-        console.log('total: ' + orders[i].total)
+        console.log('=====')
+        console.log('id: ' + orders[i].id) /* NOTE: You would need to concatenate a string because the key (i.e. "id:") will not display when you console.log. To label your data, you need a string.*/
+        console.log('purchase date: ' + orders[i].date)
+        console.log('purchase total: ' + orders[i].total)
     }
-    // NOTE: you wouldn't use the Return statement b/c that would stop the for loop
+    // NOTE: You wouldn't use the Return statement b/c that would stop the for loop
 }
 
 printOrders(arrayOfObjects);
@@ -248,6 +250,24 @@ printOrders(arrayOfObjects);
         to inspect your results.
 */
 
+var sumObj = {
+  a: 3,
+  b: 7,
+  result: undefined
+};
+
+function objectAddition(object){
+  object.result = object.a + object.b;
+  // console.log(object.a)
+  // console.log(object.b)
+  // console.log(object.result)
+
+  return(object);
+}
+
+
+var sumObjResult = objectAddition(sumObj);
+console.log(sumObjResult)
 
 /*
 9. Print sum function and add as new key-value
@@ -266,6 +286,40 @@ printOrders(arrayOfObjects);
         **create more** objects and invoke your function multiple times.
  */
 
+// CORRECT ANSWER
+function printObj(object){
+  object.result = object.a + object.b;
+  /*NOTE: although the solution key omits the aforementioned line, I included this line b/c object.result was a local property and could not be accessed outside of the function. W/O this line, could not invoke function with other objects.*/
+  return object.a + " + " + object.b + " = " + object.result;
+}
+
+console.log(printObj(sumObj))
+
+var sumObj2 = {
+  a: 10,
+  b: 12,
+  result: undefined
+}
+
+// console.log(sumObj2)
+console.log(printObj(sumObj2))
+
+/* MY ORIGINAL ANSWER:
+function printObj(object){
+  object.result = object.a + object.b;
+  // console.log(object.result)
+  console.log(object.a)
+  console.log(' + ')
+  console.log(object.b)
+  console.log(' = ')
+  console.log(object.result)
+
+  object.output = _____;
+  return(object.output);
+}
+
+var x = printObj(sumObj);
+console.log(x) */
 
 /*
 10. Putting stuff in `plainBox`
@@ -277,6 +331,27 @@ printOrders(arrayOfObjects);
         plainBoxResult and use `console.log` to inspect your results.
  */
 
+// CORRECT ANSWER
+function putInPlainBox(object){
+  for (var i = 0; i<10; i++){
+    var randomNum = Math.floor(Math.random()*10);
+    /*NOTE: make sure "Math" is capitalized otherwise will not work. Will get message saying "math is not defined".*/
+    object.contents.push(randomNum);
+  }
+
+  return(object);
+} 
+
+/* MY ORIGINAL ANSWER:
+function putInPlainBox(object){
+  for (i = 0; i<10; i++){
+    object.push(math.floor(math.random() * 100));
+  }
+  return(object);
+}*/
+
+plainBoxResult = putInPlainBox(plainBox);
+console.log(plainBoxResult)
 
 /*
 11. Detecting transmission
@@ -289,6 +364,17 @@ printOrders(arrayOfObjects);
     Invoke your function and pass in your stockCar object, store the result to a variable named isAutomaticTransmission and use `console.log` to inspect your results.
  */
 
+function detectingTransmission(object){
+  if(object.automaticTransmission === true){
+    return 'Car has automatic transmission. Can drive!';
+  }else{
+    return "Do not drive! You don't know manual!";
+  }
+  
+}
+
+var isAutomaticTransmission = detectingTransmission(stockCar);
+console.log(isAutomaticTransmission)
 
 /*
 12.  Who's driving this thing?!
@@ -302,8 +388,14 @@ printOrders(arrayOfObjects);
       your results. Consider using `plainPerson` as your driver.
  */
 
+function addDriver(car,person){
+  // console.log(person)
+  car.driver = person;
+  return car;
+}
 
-
+var stockCarWithDriver = addDriver(stockCar,plainPerson);
+console.log(stockCarWithDriver)
 
 /*
     #Final Boss
@@ -337,3 +429,39 @@ printOrders(arrayOfObjects);
         'Marifel, age 19, is riding dirty!'
         'Victor, age 19, is riding dirty!'
  */
+
+var passengerList = ['Jon', 'Jason', 'Tony', 'Joe', 'Jesse', 'Nigel', 'Kelli', 'Marifel', 'Victor'];
+// console.log('Passenger List: ',passengerList)
+
+var passengerAges = [19, 12, 21, 22, 16, 9, 19, 20, 15];
+// console.log('Passenger Ages: ', passengerAges)
+
+// CORRECT ANSWER
+function addPassengers(car,names,ages){
+  for (var i = 0; i<names.length; i++){
+    var newRider = {};
+    buildPerson(newRider, names[i], ages[i]);
+    car.passengers.push(newRider);
+  }
+  return car;
+}
+
+/* MY ORIGINAL ANSWER: 
+function addPassengers(car,names,ages){ 
+  for(var i = 0; i<names.length; i++){
+    var person = {};
+    var carPassengers = buildPerson(person,names,ages);
+    car.passengers = carPassengers
+  }
+  
+  return car;
+}*/
+
+console.log(addPassengers(stockCar,passengerList,passengerAges))
+
+function displayPassengers(car,names,ages){
+  for (var i = 0; i<names.length; i++){
+    console.log(names[i] + ', age ' + ages[i] + ', is riding dirty!')
+  }
+}
+console.log(displayPassengers(stockCar,passengerList,passengerAges))
